@@ -1,20 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:todo_list_app/core/firebase_models/task_model.dart';
 
-class TaskPagination {
-  final List<Task> tasks;
+class TaskPaginationModel {
+  final List<TaskModel> tasks;
   final DocumentSnapshot? lastDocument;
   final bool hasMore;
 
-  TaskPagination({
+  TaskPaginationModel({
     required this.tasks,
     required this.lastDocument,
     required this.hasMore,
   });
 
-  factory TaskPagination.fromFirestore(QuerySnapshot querySnapshot) {
-    List<Task> tasks = querySnapshot.docs.map((doc) {
-      return Task.fromFirestore(doc.data() as Map<String, dynamic>);
+  factory TaskPaginationModel.fromFirestore(QuerySnapshot querySnapshot) {
+    List<TaskModel> tasks = querySnapshot.docs.map((doc) {
+      return TaskModel.fromFirestore(doc.data() as Map<String, dynamic>);
     }).toList();
 
     bool hasMore = querySnapshot.docs.length == 10;
@@ -23,7 +23,7 @@ class TaskPagination {
         ? querySnapshot.docs.last
         : null;
 
-    return TaskPagination(
+    return TaskPaginationModel(
       tasks: tasks,
       lastDocument: lastDoc,
       hasMore: hasMore,

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_list_app/core/firebase_models/task_model.dart';
-import 'package:todo_list_app/core/firebase_models/task_pagination.dart';
+import 'package:todo_list_app/core/firebase_models/task_pagination_model.dart';
 import 'package:todo_list_app/data/task_service.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late List<Task> _tasks;
+  late List<TaskModel> _tasks;
   bool _isLoading = false;
   bool _hasMore = true;
   DocumentSnapshot? _lastDocument;
@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> loadTasks() async {
     if (_isLoading || !_hasMore) return;
     setState(() => _isLoading = true);
-    TaskPagination result = await taskService.getTasks(lastDocument: _lastDocument);
+    TaskPaginationModel result = await taskService.getTasks(lastDocument: _lastDocument);
     setState(() {
       _tasks.addAll(result.tasks);
       _lastDocument = result.lastDocument;

@@ -1,20 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Task {
+class TaskModel {
   final TaskField title;
   final TaskField description;
   final bool status;
   final DateTime createdAt;
 
-  Task({
+  TaskModel({
     required this.title,
     required this.description,
     required this.status,
     required this.createdAt,
   });
 
-  factory Task.fromFirestore(Map<String, dynamic> json) {
-    return Task(
+  factory TaskModel.fromFirestore(Map<String, dynamic> json) {
+    return TaskModel(
       title: TaskField.fromJson(json['title']),
       description: TaskField.fromJson(json['description']),
       status: json['status'] ?? false,
