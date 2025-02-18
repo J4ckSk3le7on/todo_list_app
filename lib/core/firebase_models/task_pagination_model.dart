@@ -14,7 +14,7 @@ class TaskPaginationModel {
 
   factory TaskPaginationModel.fromFirestore(QuerySnapshot querySnapshot) {
     List<TaskModel> tasks = querySnapshot.docs.map((doc) {
-      return TaskModel.fromFirestore(doc.data() as Map<String, dynamic>);
+      return TaskModel.fromFirestore(doc);
     }).toList();
 
     bool hasMore = querySnapshot.docs.length == 10;

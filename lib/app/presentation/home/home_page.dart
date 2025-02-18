@@ -87,10 +87,17 @@ class _HomePageState extends State<HomePage> {
                 : Center(child: Text('No more tasks'));
             }
             var task = _tasks[index];
-            return ListTile(
+            return CheckboxListTile(
               title: Text(task.title.es),
-              subtitle: Text(task.status ? 'Completed' : 'Pending'),
-              trailing: Text(task.createdAt.toString()),
+              subtitle: Text(task.description.es),
+              value: task.status,
+              onChanged: (bool? value) async {
+                setState(() => task.status = value!);
+                await taskService.updateTaskStatus(taskId: task.id!, status: value!);
+                await _loadTasks(true);
+              },
+              activeColor: Theme.of(context).primaryColor,
+              checkColor: Colors.white,
             );
           },
           controller: _scrollController

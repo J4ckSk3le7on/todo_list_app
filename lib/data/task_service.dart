@@ -19,6 +19,10 @@ class _TaskService {
     await _firestore.collection('task').add(newTask.toFirestore());
   }
 
+  Future<void> updateTaskStatus({required String taskId, required bool status}) async {
+    await _firestore.collection('task').doc(taskId).update({'status': status});
+  }
+
 }
 
 final taskService = _TaskService();
