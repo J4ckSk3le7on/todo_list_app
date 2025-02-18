@@ -23,6 +23,11 @@ class _TaskService {
     await _firestore.collection('task').doc(taskId).update({'status': status});
   }
 
+  Future<void> deleteTask(String taskId) async {
+    DocumentReference taskRef = _firestore.collection('tasks').doc(taskId);
+    await taskRef.delete();
+  }
+
 }
 
 final taskService = _TaskService();

@@ -57,7 +57,18 @@ class _HomePageState extends State<HomePage> {
         _isLoading = false;
       });
     } catch (error) {
-      snackBarUtils.showSnackbar(error.toString());
+      snackBarUtils.showSnackbar("Error loading task: $error");
+    }
+  }
+
+  Future<void> _deleteTask(String taskId) async {
+    try {
+      await taskService.deleteTask(taskId);
+      setState(() {
+        _tasks.removeWhere((task) => task.id == taskId);
+      });
+    } catch (error) {
+      snackBarUtils.showSnackbar("Error deleting task: $error");
     }
   }
 
@@ -98,6 +109,10 @@ class _HomePageState extends State<HomePage> {
               },
               activeColor: Theme.of(context).primaryColor,
               checkColor: Colors.white,
+              secondary: IconButton(
+                icon: Icon(Icons.delete, color: Colors.red[900]),
+                onPressed: () => _deleteTask(task.id!),
+              )
             );
           },
           controller: _scrollController

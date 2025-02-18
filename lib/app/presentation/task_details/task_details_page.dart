@@ -37,7 +37,7 @@ class _TaskDetailsPageState extends State<TaskDetailsPage> {
       }
       widget.refresh();
     } catch (error) {
-      snackBarUtils.showSnackbar(error.toString());
+      snackBarUtils.showSnackbar("Error creating task $error");
     }
   }
 
